@@ -9,6 +9,8 @@ services:
       GPU_MEMORY_UTILIZATION: ${GPU_MEMORY_UTILIZATION:-0.85}
       MAX_NUM_SEQS: ${MAX_NUM_SEQS:-32}
       VLLM_DTYPE: ${VLLM_DTYPE:-auto}
+      # awq_marlin / awq / gptq_marlin / gptq; empty = BF16, no quantization
+      QUANTIZATION: ${QUANTIZATION:-}
     volumes:
       - ${HF_HOME:-~/.cache/huggingface}:/root/.cache/huggingface
       - ${MODEL_PATH:-../../models/cache}:/models/model:ro

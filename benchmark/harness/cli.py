@@ -22,7 +22,22 @@ def main(
     requests: Annotated[int, typer.Option(min=1)] = 3,
     output: OutputOption = Path("benchmark/results/smoke.json"),
     timeout_seconds: Annotated[int, typer.Option(min=1)] = 300,
+    model_name: Annotated[str | None, typer.Option()] = None,
+    quantization: Annotated[str | None, typer.Option()] = None,
+    dtype: Annotated[str, typer.Option()] = "auto",
+    max_model_len: Annotated[int | None, typer.Option()] = None,
+    label: Annotated[str | None, typer.Option()] = None,
 ) -> None:
+    metadata = {
+        "label": label,
+        "model_name": model_name,
+        "quantization": quantization,
+        "dtype": dtype,
+        "max_model_len": max_model_len,
+        "concurrency": concurrency,
+        "requests": requests,
+        "base_url": base_url.rstrip("/"),
+    }
     items = load_workload(workload)
     result = asyncio.run(
         run_benchmark(
@@ -32,6 +47,7 @@ def main(
             concurrency=concurrency,
             request_count=requests,
             timeout_seconds=timeout_seconds,
+            metadata=metadata,
         )
     )
     write_result(output, result)

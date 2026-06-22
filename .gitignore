@@ -5,6 +5,7 @@ __pycache__/
 .ruff_cache/
 *.pyc
 *.log
+*.bak
 *.sqlite
 *.egg-info/
 .DS_Store

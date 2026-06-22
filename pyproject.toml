@@ -19,6 +19,15 @@ dev = [
   "pytest-asyncio>=0.23.0",
   "ruff>=0.6.0",
 ]
+# Phase 2 量化实验采用「官方预量化权重（Qwen2.5 AWQ / GPTQ-Int4）+ vLLM 原生
+# kernel（awq_marlin / gptq_marlin）」方案，量化/反量化在 vLLM 容器内完成，
+# 因此运行期 *不* 需要 autoawq / auto-gptq（这两者在 ARM/GB10 上需源码编译，
+# 易踩坑）。如确需在宿主侧做权重检查或自定义评测，可按需安装 analysis extra，
+# 但它不是默认依赖，不影响 `pip install -e .`。
+analysis = [
+  "transformers>=4.46",
+  "datasets>=3.0",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

@@ -10,6 +10,9 @@ MAX_MODEL_LEN="${MAX_MODEL_LEN:-4096}"
 GPU_MEMORY_UTILIZATION="${GPU_MEMORY_UTILIZATION:-0.75}"
 MAX_NUM_SEQS="${MAX_NUM_SEQS:-8}"
 HOST_PORT="${VLLM_HOST_PORT:-8000}"
+# Quantization method passed through to start-vllm.sh.
+# Valid values: awq_marlin, awq, gptq_marlin, gptq; empty = BF16 (no quantization).
+QUANTIZATION="${QUANTIZATION:-}"
 
 if ! command -v docker >/dev/null 2>&1; then
   echo "docker command not found" >&2
@@ -49,4 +52,5 @@ docker run --rm --gpus all \
   -e "MAX_MODEL_LEN=${MAX_MODEL_LEN}" \
   -e "GPU_MEMORY_UTILIZATION=${GPU_MEMORY_UTILIZATION}" \
   -e "MAX_NUM_SEQS=${MAX_NUM_SEQS}" \
+  -e "QUANTIZATION=${QUANTIZATION}" \
   "${IMAGE}" "/app/start-vllm.sh"

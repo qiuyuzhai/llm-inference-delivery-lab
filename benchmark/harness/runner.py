@@ -138,6 +138,20 @@ async def run_one(
         )
 
 
+def build_config(metadata: dict) -> dict:
+    """Assemble the config section from run metadata; strips api_key."""
+    return {
+        "label": metadata.get("label"),
+        "model_name": metadata.get("model_name"),
+        "quantization": metadata.get("quantization"),
+        "dtype": metadata.get("dtype"),
+        "max_model_len": metadata.get("max_model_len"),
+        "concurrency": metadata.get("concurrency"),
+        "requests": metadata.get("requests"),
+        "base_url": metadata.get("base_url"),
+    }
+
+
 def summarize_results(results: list[RequestResult], total_seconds: float) -> dict:
     successful = [result for result in results if result.ok]
     measured_tokens = [result for result in successful if result.completion_tokens is not None]
@@ -179,6 +193,7 @@ async def run_benchmark(
     concurrency: int,
     request_count: int,
     timeout_seconds: int,
+    metadata: dict | None = None,
 ) -> dict:
     selected = [workload[index % len(workload)] for index in range(request_count)]
     semaphore = asyncio.Semaphore(concurrency)
@@ -198,7 +213,9 @@ async def run_benchmark(
         results = await asyncio.gather(*(guarded(item) for item in selected))
         total_seconds = time.perf_counter() - started
 
+    config = build_config(metadata or {})
     return {
+        "config": config,
         "summary": summarize_results(results, total_seconds=total_seconds),
         "results": [asdict(result) for result in results],
     }
