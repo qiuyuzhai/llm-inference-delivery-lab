@@ -1,0 +1,13 @@
+{
+  "label": "7B-AWQ-mml16384",
+  "model_path": "/home/aaron/models/qwen2.5/Qwen2.5-7B-Instruct-AWQ",
+  "quantization": "awq_marlin",
+  "max_model_len": 16384,
+  "gpu_memory_utilization": 0.75,
+  "allow_long_max_model_len": false,
+  "healthy": true,
+  "kv_cache_tokens": 1524208,
+  "max_concurrency": 93.03,
+  "weight_gib": 5.29,
+  "fail_reason": null
+}

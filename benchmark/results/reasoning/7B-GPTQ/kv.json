@@ -1,0 +1,13 @@
+{
+  "label": "7B-GPTQ",
+  "model_path": "/home/aaron/models/qwen2.5/Qwen2.5-7B-Instruct-GPTQ-Int4",
+  "quantization": "gptq_marlin",
+  "max_model_len": 8192,
+  "gpu_memory_utilization": 0.75,
+  "allow_long_max_model_len": false,
+  "healthy": true,
+  "kv_cache_tokens": 1519200,
+  "max_concurrency": 185.45,
+  "weight_gib": 5.27,
+  "fail_reason": null
+}

@@ -1,0 +1,16 @@
+{
+  "config": {
+    "label": "mml16384-gmu0.9-mns32",
+    "model_name": "/models/model",
+    "quantization": null,
+    "dtype": "auto",
+    "max_model_len": 16384,
+    "concurrency": null,
+    "requests": null,
+    "base_url": "http://127.0.0.1:8081"
+  },
+  "failed": true,
+  "reason": "vLLM startup failed (OOM or timeout)",
+  "gpu_memory_utilization": 0.9,
+  "max_num_seqs": 32
+}
